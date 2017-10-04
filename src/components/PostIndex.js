@@ -12,7 +12,7 @@ class PostIndex extends Component {
         return (
             <div>
                 <div>
-                    <Link to='/post/new'>
+                    <Link to='/post/add'>
                         Add a Post
                     </Link>
                 </div>
