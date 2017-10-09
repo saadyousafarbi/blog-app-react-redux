@@ -4,7 +4,9 @@ const random_API_KEY = 'YOUR-RANDOM-API-KEY';   // redux-blog handles posts on r
 
 export const projectConfig = {
     FETCH_POSTS : 'FETCH_POSTS',
+    FETCH_POST : 'FETCH_POST',
     CREATE_POST : 'CREATE_POSTS',
+    DELETE_POST : 'DELETE_POST',
     ROOT_URL : 'http://reduxblog.herokuapp.com/api',
     API_KEY : `?key=${random_API_KEY}`,
 };
