@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/index';
-import { Link } from 'react-router';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchPosts } from '../actions/index'
+import { Link } from 'react-router-dom'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
-class PostsIndex extends Component {
-    componentWillMount() {
-        this.props.fetchPosts();
-    }
+function PostsIndex(props) {
 
-    renderPosts() {
-        return this.props.posts.map((post) => {
+    useEffect(() => {
+        props.fetchPosts()
+    }, [])
+
+    function renderPosts() {
+        return props.posts.map((post) => {
         return (
             <ListGroupItem key={post.id} className='list-group-item'>
                 <Link to={'post/' + post.id}>
@@ -22,26 +23,25 @@ class PostsIndex extends Component {
         });
     }
 
-    render() {
-        return (
+    return (
+        <div>
+            <h2> Welcome to Redux Blog App.</h2>
             <div>
-                <h2> Welcome to Redux Blog App.</h2>
-                <div>
-                    <Link to='/post/add'>
-                        Add a New Post
-                    </Link>
-                </div>
-                <h3>Available Posts</h3>
-                <ListGroup>
-                    {this.renderPosts()}
-                </ListGroup>
+                <Link to='/post/add'>
+                    Add a New Post
+                </Link>
             </div>
-        );
-    }
+            <h3>Available Posts</h3>
+            <ListGroup>
+                {renderPosts()}
+            </ListGroup>
+        </div>
+    )
 }
 
 function mapStateToProps(state) {
-    return { posts: state.posts.allPosts };
+    return { posts: state.posts.allPosts }
 }
 
-export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex)
+

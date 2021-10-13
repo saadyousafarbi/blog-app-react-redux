@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+
+import PostsIndex from './PostsIndex'
+import NewPost  from './NewPost'
+import ShowPost from './ShowPost'
 
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
+function App() {
+  return (
+      <Switch>
+        <Route exact path='/'> <PostsIndex /> </Route>
+        <Route path='/post/add'> <NewPost /> </Route>
+        <Route path='/post/:id'> <ShowPost /> </Route>
+      </Switch>
+  );
 }
 
-export default App;
+export default App

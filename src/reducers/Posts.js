@@ -1,9 +1,10 @@
-import { projectConfig } from '../config';
+import { projectConfig } from '../config'
 
-const INITIAL_STATE = { allPosts: [], selectedPost: null };
-const FETCH_POSTS = projectConfig.FETCH_POSTS;
-const FETCH_POST = projectConfig.FETCH_POST;
-const DELETE_POST = projectConfig.DELETE_POST;
+const INITIAL_STATE = { allPosts: [], selectedPost: null }
+const FETCH_POSTS = projectConfig.FETCH_POSTS
+const FETCH_POST = projectConfig.FETCH_POST
+const DELETE_POST = projectConfig.DELETE_POST
+const CREATE_POST = projectConfig.CREATE_POST
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
@@ -13,6 +14,8 @@ export default function(state = INITIAL_STATE, action) {
             return { ...state, allPosts: action.payload.data };
         case DELETE_POST:
             return state;
+        case CREATE_POST:
+            return {...state, allPosts: [...state.allPosts, action.payload.data]}
 
         default:
             return state;
