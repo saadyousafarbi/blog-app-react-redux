@@ -1,51 +1,63 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { createPost } from '../actions/index'
 import { useHistory } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
+import { Formik } from "formik";
 
-function NewPost(props) {
-    const [title, setTitle] = useState('')
-    const [category, setCategory] = useState('')
-    const [content, setContent] = useState('')
+function NewPost() {
     const history = useHistory()
 
-    function handleSubmit() {
-        createPost({title: title, category: category, content: content})
-        history.push('/')
-    }
-
     return (
-        <Form onSubmit={() => handleSubmit()} className='input-group'>
-            <h3> Create A New Post </h3>
-            <div>
-                <label> Title </label>
-                <input
-                    type='text'
-                    className='form-control'
-                    value={title}
-                    onChange={event => setTitle(event.target.value)}
-                />
-            </div>
-            <div>
-                <label> Category </label>
-                <input
-                    type='text'
-                    className='form-control'
-                    value={category}
-                    onChange={event => setCategory(event.target.value)}
-                />
-            </div>
-            <div>
-                <label> Content </label>
-                <textarea
-                    type='text'
-                    className='form-control'
-                    value={content}
-                    onChange={event => setContent(event.target.value)}
-                />
-            </div>
-            <button type='submit' className='btn btn-default'> Submit </button>
-        </Form>
+        <Formik initialValues={{
+            'title': '',
+            'category': '',
+            'content': ''
+        }} onSubmit={({title, category, content}) => {
+                createPost({title: title, category: category, content: content})
+                history.push('/')
+        }} >
+            {({ values, handleChange, handleBlur, handleSubmit}) => {
+                return (
+                    <Form onSubmit={handleSubmit} className='input-group'>
+                        <h3> Create A New Post </h3>
+                        <div>
+                            <label> Title </label>
+                            <input
+                                placeholder='Title'
+                                name='title'
+                                type='text'
+                                value={values.title}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </div>
+                        <div>
+                            <label> Category </label>
+                            <input
+                                placeholder='category'
+                                name='category'
+                                type='text'
+                                value={values.category}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </div>
+                        <div>
+                            <label> Content </label>
+                            <textarea
+                                placeholder='content'
+                                name='content'
+                                type='text'
+                                value={values.content}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </div>
+                        <button type='submit' className='btn btn-default'> Submit </button>
+                    </Form>
+                )
+            }}
+        </Formik>
     )
 }
 
