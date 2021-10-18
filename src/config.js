@@ -7,6 +7,7 @@ export const projectConfig = {
     FETCH_POST : 'FETCH_POST',
     CREATE_POST : 'CREATE_POSTS',
     DELETE_POST : 'DELETE_POST',
+    UPDATED_POSTS_VIEWED: 'UPDATED_POSTS_VIEWED',
     ROOT_URL : 'http://reduxblog.herokuapp.com/api',
     API_KEY : `?key=${random_API_KEY}`,
 }

@@ -8,11 +8,11 @@ function ShowPost(props) {
     const history = useHistory()
 
     useEffect(() => {
-        props.fetchPost(id);
+        props.fetchPost(id)
     }, [])
 
     function onDeleteClick() {
-        props.deletePost(id);
+        props.deletePost(id)
         history.push('/')
     }
 
