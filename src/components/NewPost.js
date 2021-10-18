@@ -3,8 +3,9 @@ import { createPost } from '../actions/index'
 import { useHistory } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { Formik } from "formik";
+import {connect} from "react-redux";
 
-function NewPost() {
+function NewPost(props) {
     const history = useHistory()
 
     return (
@@ -13,8 +14,9 @@ function NewPost() {
             'category': '',
             'content': ''
         }} onSubmit={({title, category, content}) => {
-                createPost({title: title, category: category, content: content})
-                history.push('/')
+            props.createPost({title: title, category: category, content: content})
+                .then(res => history.push('/'))
+            // todo: add catch block and update state
         }} >
             {({ values, handleChange, handleBlur, handleSubmit}) => {
                 return (
@@ -61,4 +63,4 @@ function NewPost() {
     )
 }
 
-export default NewPost
+export default connect(null, { createPost })(NewPost)

@@ -5,6 +5,7 @@ const FETCH_POSTS = projectConfig.FETCH_POSTS;
 const CREATE_POST = projectConfig.CREATE_POST;
 const FETCH_POST = projectConfig.FETCH_POST;
 const DELETE_POST = projectConfig.DELETE_POST;
+const UPDATED_POSTS_VIEWED = projectConfig.UPDATED_POSTS_VIEWED
 
 const ROOT_URL = projectConfig.ROOT_URL
 const API_KEY = projectConfig.API_KEY
@@ -18,19 +19,14 @@ export function fetchPosts() {
           err => dispatch({ type: 'LOAD_DATA_FAILURE', payload: err })
         );
 }
-
 export function createPost(props) {
-    axios.post(`${ROOT_URL}/posts${API_KEY}`, props)
-    .then(
-        post => {
-            return { type: CREATE_POST, payload: post }
-        }
-    )
-    .catch(
-        err => {
-            return { type: 'CREATE_POST_FAILED', payload: err }
-        }
-    )
+    return dispatch => axios.post(`${ROOT_URL}/posts${API_KEY}`, props)
+        .then(
+            post => dispatch({ type: CREATE_POST, payload: post })
+        )
+        .catch(
+            err => dispatch({ type: 'CREATE_POST_FAILED', payload: err })
+        )
 }
 
 export function fetchPost(postId) {
@@ -51,4 +47,8 @@ export function deletePost(postId) {
         .catch(
           err => dispatch({ type: 'DELETE_POST_FAILED', payload: err })
         );
+}
+
+export function updatedPostsViewed() {
+    return {type: UPDATED_POSTS_VIEWED}
 }
