@@ -16,6 +16,7 @@ function NewPost(props) {
         }} onSubmit={({title, category, content}) => {
             props.createPost({title: title, category: category, content: content})
                 .then(res => history.push('/'))
+                .catch(error => console.log('Error creating Posts'))
             // todo: add catch block and update state
         }} >
             {({ values, handleChange, handleBlur, handleSubmit}) => {
